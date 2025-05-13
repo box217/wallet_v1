@@ -1,0 +1,11 @@
+Django==5.2
+djangorestframework==3.16.0
+python-telegram-bot==20.6
+tronpy==0.3.0
+eth-account==0.9.0
+eth-abi==4.2.1
+web3==6.15.1
+requests==2.31.0
+python-dotenv==1.0.1
+pymysql==1.1.0
+gunicorn>=20.1.0
