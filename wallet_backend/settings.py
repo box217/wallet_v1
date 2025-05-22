@@ -16,9 +16,14 @@ pymysql.install_as_MySQLdb()
 
 import os
 from dotenv import load_dotenv
-
 # 加载 .env 文件
 load_dotenv()
+# Web 服务配置
+WEB_HOST = os.getenv("WEB_HOST", "127.0.0.1")
+WEB_PORT = int(os.getenv("WEB_PORT", 8000))
+WEB_DOMAIN = os.getenv("WEB_DOMAIN", "https://yourdomain.com")
+
+
 
 
 from pathlib import Path
@@ -36,7 +41,12 @@ SECRET_KEY = 'django-insecure-bqy^l7go3xss%6c=79rah579b4j8yu=$!-5)kfw98vh8j)000t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '0.0.0.0',
+    '127.0.0.1',
+    'localhost',
+    'tg-miax.ha5.xyz'  # 你的域名
+]
 
 
 # Application definition
@@ -67,7 +77,7 @@ ROOT_URLCONF = 'wallet_backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

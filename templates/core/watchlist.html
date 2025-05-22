@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>监听地址列表</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            padding: 2rem;
+        }
+        h2 {
+            font-size: 1.5rem;
+            color: #444;
+        }
+        nav {
+            margin-bottom: 1.5rem;
+        }
+        nav a {
+            margin-right: 1rem;
+            text-decoration: none;
+            color: #0066cc;
+            font-size: 0.9rem;
+        }
+        nav a.selected {
+            font-weight: bold;
+            color: #000;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+        th, td {
+            padding: 0.6rem 1rem;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        .small {
+            font-size: 0.8rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <h2>🔍 监听地址列表</h2>
+
+    <nav>
+        <a href="?">全部</a>
+        <a href="?chain=ERC20" class="{% if selected_chain == 'ERC20' %}selected{% endif %}">ERC20</a>
+        <a href="?chain=TRC20" class="{% if selected_chain == 'TRC20' %}selected{% endif %}">TRC20</a>
+        <a href="?chain=BTC" class="{% if selected_chain == 'BTC' %}selected{% endif %}">BTC</a>
+    </nav>
+
+    <table>
+        <thead>
+            <tr>
+                <th>地址</th>
+                <th>链类型</th>
+                <th>币种</th>
+                <th>绑定用户</th>
+                <th>添加时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for addr in addresses %}
+                <tr>
+                    <td>{{ addr.address }}</td>
+                    <td>{{ addr.chain_type }}</td>
+                    <td>{{ addr.token_type }}</td>
+                    <td>{{ addr.chat_id }}</td>
+                    <td class="small">{{ addr.added_at|date:"Y-m-d H:i" }}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="5">暂无数据</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

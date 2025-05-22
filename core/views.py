@@ -38,3 +38,20 @@ def import_user(request):
         "user_created": created,
         "wallets_created": count
     }, status=200)
+
+
+from django.shortcuts import render
+from .models import TelegramWatchAddress
+
+def watchlist_view(request):
+    chain_type = request.GET.get("chain", "").upper()
+    addresses = TelegramWatchAddress.objects.all()
+
+    if chain_type in ["ERC20", "TRC20", "BTC"]:
+        addresses = addresses.filter(chain_type=chain_type)
+
+    addresses = addresses.order_by('-added_at')[:100]
+    return render(request, "core/watchlist.html", {
+        "addresses": addresses,
+        "selected_chain": chain_type,
+    })

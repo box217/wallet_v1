@@ -48,16 +48,29 @@ async def add_address(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("该地址已存在绑定记录")
 
 # /list
-async def list_addresses(update: Update, context: ContextTypes.DEFAULT_TYPE):
+MAX_LENGTH = 4000  # 留 buffer 防止超限
+
+async def list_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = str(update.effective_chat.id)
     qs = TelegramWatchAddress.objects.filter(chat_id=chat_id)
 
     if not qs.exists():
-        await update.message.reply_text("暂无绑定地址")
+        await update.message.reply_text("📭 暂无绑定地址")
         return
 
     lines = [f"{x.address} ({x.chain_type})" for x in qs]
-    await update.message.reply_text("\n".join(lines))
+
+    msg = ""
+    for line in lines:
+        # 超出最大长度则先发送
+        if len(msg) + len(line) + 1 > MAX_LENGTH:
+            await update.message.reply_text(msg)
+            msg = ""
+        msg += line + "\n"
+
+    # 剩余部分也要发出
+    if msg:
+        await update.message.reply_text(msg)
 
 # /remove <地址>
 async def remove_address(update: Update, context: ContextTypes.DEFAULT_TYPE):

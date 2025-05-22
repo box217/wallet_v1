@@ -72,16 +72,13 @@ class CollectionLog(models.Model):
     token_type = models.CharField(max_length=10)
     created_at = models.DateTimeField(auto_now_add=True)
 
-
-
-from django.db import models
-
 class TelegramWatchAddress(models.Model):
     chat_id = models.CharField(max_length=64)
     address = models.CharField(max_length=64)
     chain_type = models.CharField(max_length=16)
     token_type = models.CharField(max_length=16)
     added_at = models.DateTimeField(auto_now_add=True)
+
     class Meta:
         unique_together = ('chat_id', 'address', 'chain_type')
 

@@ -1,0 +1,19 @@
+{
+  "tokens": {
+    "USDT": {
+      "contract": "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t",
+      "decimals": 6
+    },
+    "USDD": {
+      "contract": "TXDk8mbtRbXeYuMNS83CfKPaYYT8XWv9Hz",
+      "decimals": 18
+    }
+  },
+  "api_keys": [
+    "700cf95f-73ba-4384-b4bb-1df82efe8f3f",
+    "60a58566-9b13-4485-8ed9-a03a2e52c2d5"
+
+  ],
+  "polling_interval": 120,
+  "batch_size": 16
+}

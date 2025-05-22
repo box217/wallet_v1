@@ -15,3 +15,10 @@ def decrypt_private_key(encrypted: str, key: str) -> str:
     cipher = AES.new(key.encode('utf-8'), AES.MODE_CFB, iv=iv)
     decrypted = cipher.decrypt(raw[16:])
     return decrypted.decode('utf-8')
+
+from django.urls import path
+from .views import watchlist_view
+
+urlpatterns = [
+    path("watchlist/", watchlist_view, name="watchlist"),
+]

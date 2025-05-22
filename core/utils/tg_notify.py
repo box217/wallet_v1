@@ -1,9 +1,9 @@
 import os
 import requests
 
-def send_tg_message(chat_id: str, message: str):
+def send_tg_message(chat_id: str, message: str, parse_mode: str = None):
     """
-    向 Telegram 推送消息
+    向 Telegram 推送消息，可指定 parse_mode（Markdown / HTML）
     """
     token = os.getenv("TG_BOT_TOKEN")
     if not token:
@@ -19,9 +19,10 @@ def send_tg_message(chat_id: str, message: str):
     url = f"https://api.telegram.org/bot{token}/sendMessage"
     data = {
         "chat_id": chat_id,
-        "text": message,
-        "parse_mode": "Markdown"
+        "text": message
     }
+    if parse_mode:
+        data["parse_mode"] = parse_mode
 
     try:
         response = requests.post(url, json=data, timeout=5)

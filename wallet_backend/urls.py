@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('core.urls')),  # ✅ 加入这一行
+    path("admin/", admin.site.urls),
+    path("api/", include("core.urls")),
+    path("", RedirectView.as_view(url="/api/watchlist/", permanent=False)),  # 👈 添加这一行
 ]
